@@ -1,0 +1,23 @@
+{
+  "name": "uscert",
+  "homepage": "https://github.com/biglanggwapoventures/uscert",
+  "authors": [
+    "biglanggwapoventures <biglanggwapoventures@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.6.3",
+    "jquery-slimscroll": "^1.3.8"
+  }
+}
