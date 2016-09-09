@@ -32,6 +32,7 @@ class User_model extends MY_Model
 			->from($this->table. ' AS u')
 			->join('organizations AS o', 'o.id = u.organization_id', 'left')
 			->join('persons AS p', 'p.id = u.person_id', 'left')
+			->order_by('p.lastname')
 			->get()
 			->result_array();
 	}

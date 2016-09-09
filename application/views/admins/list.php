@@ -11,15 +11,16 @@
 					data-delete-url="<?= site_url('admins/delete') ?>">
 					<thead>
 						<tr>
-							<th>Login username</th><th>Organization</th><th>Name</th><th></th>
+							<th>Name</th><th><th>Login username</th><th>Organization</th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach($items AS $i):?>
 							<tr data-pk="<?= $i['id'] ?>">
+								<td><?= $i['fullname'] ?: '<em class="text-danger">Not supplied</em>' ?></td>
 								<td><?= $i['login_username'] ?></td>
 								<td><?= $i['organization'] ?></td>
-								<td><?= $i['fullname'] ?: '<em class="text-danger">Not supplied</em>' ?></td>
+								
 								<td>
 									<a class="btn btn-info btn-xs" href="<?= site_url("admins/edit/{$i['id']}") ?>"><i class="fa fa-pencil"></i> Edit</a>
 									<a class="btn btn-danger btn-xs remove-line"><i class="fa fa-times "></i> Delete</a>

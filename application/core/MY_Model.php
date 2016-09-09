@@ -49,4 +49,10 @@ class MY_Model extends CI_Model
 	{
 		return $this->db->get_where($this->table, ['id' => $id])->num_rows() > 0;
 	}
+
+	function order_by($column, $sort_type = 'ASC')
+	{
+		$this->db->order_by($column, $sort_type);
+		return $this;
+	}
 }

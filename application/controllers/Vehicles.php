@@ -25,7 +25,7 @@ class Vehicles extends MY_Controller
 	function index()
 	{
 		$this->generate_page('list', [
-			'items' => $this->vehicle->all(),
+			'items' => $this->vehicle->order_by('name')->all(),
 			'csrf_name' => $this->security->get_csrf_token_name(),
         	'csrf_hash' => $this->security->get_csrf_hash()
 		]);

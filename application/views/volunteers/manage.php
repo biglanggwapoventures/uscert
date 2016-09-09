@@ -2,6 +2,9 @@
 	<div class="col-sm-6">
 		<?= form_open($action, 'id="ajax"');?>
 		<!-- Custom Tabs -->
+		<div class="callout callout-danger hidden" id="validation-messages">
+			<ul class="list-unstyled"></ul>
+		</div>
 		<div class="nav-tabs-custom">
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">Account Information</a></li>
