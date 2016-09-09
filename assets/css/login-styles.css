@@ -1,4 +1,18 @@
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+.login #errors ul{
+  list-style: none;
+  text-align: center;
+}
+.login #errors{
+  padding: 5px;
+  background: red;
+  color: #fff;
+  font-size: 15px;
+  margin-bottom:10px;
+}
+
+.login #errors ul li{
+  margin-left: -40px;
+}
 
 
 body {

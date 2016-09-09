@@ -2,7 +2,7 @@
 	<div class="col-md-6">
 		<div class="box box-solid">
 			<div class="box-body">
-				<form action="<?= site_url('personnel') ?>" method="POST">
+				<?= form_open('organizations/create');?>
 					<div class="form-group">
 						<label for="login_username">Login username</label>
 						<?= form_input('login_username', FALSE, 'class="form-control" id="login_username"') ?>
@@ -17,7 +17,7 @@
 					</div>
 					<button type="submit" class="btn btn-success">Submit</button>
 					<a class="btn btn-default pull-right" href="<?= site_url('personnel') ?>">Back</a>
-				</form>
+				<?= form_close() ?>
 			</div>
 		</div>
 	</div>

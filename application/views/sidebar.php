@@ -6,12 +6,12 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
         <div class="pull-left image">
-            <img src="<?= base_url('assets/img/user2-160x160.jpg') ?>" class="img-circle" alt="User Image">
+            <img src="<?= base_url('assets/img/display-photo-placeholder.png') ?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-            <p>Alexander Pierce</p>
+            <p><?= user('fullname') ?: user('login_username') ?></p>
             <!-- Status -->
-            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            <a href="#"><i class="fa fa-key text-success"></i> <?= login_type_description(user('login_type'))?></a>
         </div>
         </div>
         <!-- /.search form -->
@@ -19,35 +19,85 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <?php $visited = $this->uri->segment(1); ?>
-            
+
+            <?php if(login_type('sa')):?>
+                <li class="header">SUPERADMIN MENU</li>
+                <li class="<?= $visited  === 'dashboard' ? 'active' : '' ?>">
+                    <a href="<?= site_url('dashboard') ?>"><i class="fa fa-home"></i> <span>Home</span></a>
+                </li>
+                <li class="<?= $visited === 'organizations' ? 'active' : '' ?>">
+                    <a href="<?= site_url('organizations') ?>"><i class="fa fa-institution"></i> <span>Organizations</span></a>
+                </li>
+                <li class="<?= $visited  === 'admins' ? 'active' : '' ?>">
+                    <a href="<?= site_url('admins') ?>"><i class="fa fa-key"></i> <span>Admins</span></a>
+                </li>
+                <li class="<?= $visited === 'reports' ? 'active' : '' ?>">
+                    <a href="<?= site_url('reports') ?>"><i class="fa fa-list-alt"></i> <span>Reports</span></a>
+                </li>
+                 <li class="<?= $visited === 'gis' ? 'active' : '' ?>">
+                    <a href="<?= site_url('gis') ?>"><i class="fa fa-globe"></i> <span>GIS</span></a>
+                </li>
+            <?php endif;?>
            
-            <!-- Optionally, you can add icons to the links -->
+
+            <?php if(login_type('a')):?>
             <li class="header">ADMIN MENU</li>
              <li class="<?= $visited  === 'dashboard' ? 'active' : '' ?>">
                 <a href="<?= site_url('dashboard') ?>"><i class="fa fa-home"></i> <span>Home</span></a>
             </li>
-            <li class="<?= $visited === 'personnel' ? 'active' : '' ?>">
-                <a href="<?= site_url('personnel') ?>"><i class="fa fa-users"></i> <span>Personnel</span></a>
+            <li class="<?= $visited === 'volunteers' ? 'active' : '' ?>">
+                <a href="<?= site_url('volunteers') ?>"><i class="fa fa-users"></i> <span>Responders</span></a>
             </li>
-            <li class="<?= $visited === 'organizations' ? 'active' : '' ?>">
-                <a href="<?= site_url('organizations') ?>"><i class="fa fa-institution"></i> <span>Organizations</span></a>
+            <li class="<?= in_array($visited, ['vehicles', 'vehicle-types']) ? 'active' : '' ?> treeview">
+                <a href="#">
+                    <i class="fa fa-car"></i> <span>Vehicles</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?= $visited === 'vehicles' ? 'active' : '' ?>">
+                        <a href="<?= site_url('vehicles') ?>"><i class="fa fa-circle-o"></i> Manage</a>
+                    </li>
+                    <li class="<?= $visited === 'vehicle-types' ? 'active' : '' ?>">
+                        <a href="<?= site_url('vehicle-types') ?>"><i class="fa fa-circle-o"></i> Types</a>
+                    </li>
+                </ul>
             </li>
-            <li class="<?= $visited === 'vehicles' ? 'active' : '' ?>">
-                <a href="<?= site_url('vehicles') ?>"><i class="fa fa-car"></i> <span>Vehicles</span></a>
-            </li>
-            <li class="<?= $visited === 'incidents' ? 'active' : '' ?>">
-                <a href="<?= site_url('incidents') ?>"><i class="fa fa-map"></i> <span>Incidents</span></a>
+            <?php $inIncidentsPage = in_array($visited, ['reports']); ?>
+            <li class="<?= $inIncidentsPage ? 'active' : '' ?> treeview">
+                <a href="#">
+                    <i class="fa fa-map"></i> <span>Incidents</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?= $inIncidentsPage && $this->input->get('status') !== 'approved' ? 'active' : '' ?>">
+                        <a href="<?= site_url('reports?status=pending') ?>"><i class="fa fa-circle-o"></i> Pending</a>
+                    </li>
+                    <li class="<?= $inIncidentsPage && $this->input->get('status') === 'approved' ? 'active' : '' ?>">
+                        <a href="<?= site_url('reports?status=approved') ?>"><i class="fa fa-circle-o"></i> Approved</a>
+                    </li>
+                </ul>
             </li>
             <li class="<?= $visited === 'gis' ? 'active' : '' ?>">
                 <a href="<?= site_url('gis') ?>"><i class="fa fa-globe"></i> <span>GIS</span></a>
             </li>
-            <li class="header">USER MENU</li>
-            <li class="<?= $visited  === 'dashboard' ? 'active' : '' ?>">
-                <a href="<?= site_url('dashboard') ?>"><i class="fa fa-home"></i> <span>Home</span></a>
-            </li>
             <li class="<?= $visited  === 'attendance' ? 'active' : '' ?>">
                 <a href="<?= site_url('attendance') ?>"><i class="fa fa-calendar"></i> <span>Attendance</span></a>
             </li>
+            <?php endif;?>
+
+            <?php if(login_type('v')):?>
+            <li class="header">VOLUNTEER MENU</li>
+            <li class="<?= $visited  === 'dashboard' ? 'active' : '' ?>">
+                <a href="<?= site_url('dashboard') ?>"><i class="fa fa-home"></i> <span>Home</span></a>
+            </li>
+             <li class="<?= $visited === 'reports' ? 'active' : '' ?>">
+                <a href="<?= site_url('reports') ?>"><i class="fa fa-list-alt"></i> <span>Reports</span></a>
+            </li>
+            <li class="<?= $visited === 'gis' ? 'active' : '' ?>">
+                <a href="<?= site_url('gis') ?>"><i class="fa fa-globe"></i> <span>GIS</span></a>
+            </li>
+             <li class="<?= $visited  === 'attendance' ? 'active' : '' ?>">
+                <a href="<?= site_url('attendance') ?>"><i class="fa fa-calendar"></i> <span>Attendance</span></a>
+            </li>
+             <?php endif;?>
         </ul>
         <!-- /.sidebar-menu -->
     </section>

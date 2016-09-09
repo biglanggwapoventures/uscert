@@ -21,18 +21,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body>
     <div class="wrapper">
-        <form class="login">
+        <?= form_open('login/attempt', 'class="login"') ?>
             <p class="title">USCERT</p>
-            <input type="text" placeholder="Username" autofocus/>
+             <div id="errors" hidden></div>
+            <input type="text" placeholder="Username" autofocus name="login_username"/>
             <i class="fa fa-user"></i>
-            <input type="password" placeholder="Password" />
+            <input type="password" placeholder="Password" name="login_password"/>
             <i class="fa fa-key"></i>
             <a href="#">Forgot your password?</a>
             <button>
             <i class="spinner"></i>
             <span class="state">Log in</span>
             </button>
-        </form>
+        <?= form_close() ?>
         <footer>
             <a target="blank" href="http://boudra.me/">USCERT &copy; 2016</a>
         </footer>
@@ -41,23 +42,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script type="text/javascript">
         var working = false;
         $('.login').on('submit', function(e) {
+
             e.preventDefault();
+
             if (working) return;
+
             working = true;
+
+            $('#errors').attr('hidden', 'hidden');
+
             var $this = $(this),
                 $state = $this.find('button > .state');
+
             $this.addClass('loading');
             $state.html('Authenticating');
-            setTimeout(function() {
+
+            $.post($this.attr('action'), $this.serialize())
+            .done(function(response){
+              if(response.result){
                 $this.addClass('ok');
                 $state.html('Welcome back!');
-                setTimeout(function() {
-                    // $state.html('Log in');
-                    // $this.removeClass('ok loading');
-                    // working = false;
-                    window.location.href = '<?= site_url('dashboard')?>';
-                }, 1000);
-            }, 3000);
+                window.location.href = '<?= site_url('dashboard')?>';
+              }else{
+                  $('#errors').removeAttr('hidden').html('<ul class="list-unstyled"><li>'+response.errors.join('</li><li>')+'</li></ul>')
+                 $this.removeClass('ok loading');
+              }
+            })
+            .fail(function(){
+              alert('An internal error has occured! Please try again!');
+                 $this.removeClass('ok loading');
+            })
+            .always(function(){
+               $state.html('Log in');
+               working = false;
+            })
         });
     </script>
 </body>

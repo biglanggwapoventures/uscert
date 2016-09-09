@@ -10,9 +10,15 @@
   <link rel="stylesheet" href="<?= base_url('bower_components/bootstrap/dist/css/bootstrap.min.css') ?>">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?= base_url('bower_components/font-awesome/css/font-awesome.min.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('bower_components/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') ?>">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url('assets/css/AdminLTE.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/skin-green-light.min.css') ?>">
+
+
+<!-- jQuery 2.2.0 -->
+<script src="<?= base_url('bower_components/jquery/dist/jquery.min.js')?>" type="text/javascript"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -49,24 +55,27 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="<?= base_url('assets/img/user2-160x160.jpg') ?>" class="user-image" alt="User Image">
+              <img src="<?= base_url('assets/img/display-photo-placeholder.png') ?>" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs"><?= user('fullname') ?: user('login_username') ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="<?= base_url('assets/img/user2-160x160.jpg') ?>" class="img-circle" alt="User Image">
+                <img src="<?= base_url('assets/img/display-photo-placeholder.png') ?>" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                 <?= user('fullname') ?: user('login_username') ?>
+                  <small><?= user('organization') ?: '<em class="text-danger">Unassigned</em>' ?></small>
                 </p>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-right">
-                  <a href="<?= site_url() ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?= site_url('logout') ?>" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+                <div>
+                  <a href="<?= site_url('profile') ?>" class="btn btn-default btn-flat">Profile</a>
                 </div>
               </li>
             </ul>
@@ -111,12 +120,15 @@
 
 <!-- REQUIRED JS SCRIPTS -->
 
-<!-- jQuery 2.2.0 -->
-<script src="<?= base_url('bower_components/jquery/dist/jquery.min.js')?>" type="text/javascript"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="<?= base_url('bower_components/bootstrap/dist/js/bootstrap.min.js')?>"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url('bower_components/jquery-slimscroll/jquery.slimscroll.min.js')?>"></script>
+<script src="<?= base_url('bower_components/moment/min/moment.min.js')?>"></script>
+<script src="<?= base_url('bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js')?>"></script>
+<script type="text/javascript" src="<?= base_url('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')?>"></script>
 <script src="<?= base_url('assets/js/app.min.js')?>"></script>
+<script src="<?= base_url('assets/js/common.js')?>"></script>
+<script src="<?= base_url('assets/js/attendance.js')?>"></script>
 </body>
 </html>
