@@ -67,11 +67,15 @@
                     <i class="fa fa-map"></i> <span>Incidents</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="<?= $inIncidentsPage && $this->input->get('status') !== 'approved' ? 'active' : '' ?>">
+                    <?php $status = $this->input->get('status');?>
+                    <li class="<?= $inIncidentsPage && !in_array($status, ['approved', 'rejected']) ? 'active' : '' ?>">
                         <a href="<?= site_url('reports?status=pending') ?>"><i class="fa fa-circle-o"></i> Pending</a>
                     </li>
-                    <li class="<?= $inIncidentsPage && $this->input->get('status') === 'approved' ? 'active' : '' ?>">
+                    <li class="<?= $inIncidentsPage && $status === 'approved' ? 'active' : '' ?>">
                         <a href="<?= site_url('reports?status=approved') ?>"><i class="fa fa-circle-o"></i> Approved</a>
+                    </li>
+                    <li class="<?= $inIncidentsPage && $status === 'rejected' ? 'active' : '' ?>">
+                        <a href="<?= site_url('reports?status=rejected') ?>"><i class="fa fa-circle-o"></i> Rejected</a>
                     </li>
                 </ul>
             </li>

@@ -28,14 +28,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <i class="fa fa-user"></i>
             <input type="password" placeholder="Password" name="login_password"/>
             <i class="fa fa-key"></i>
-            <a href="#">Forgot your password?</a>
             <button>
             <i class="spinner"></i>
             <span class="state">Log in</span>
             </button>
         <?= form_close() ?>
         <footer>
-            <a target="blank" href="http://boudra.me/">USCERT &copy; 2016</a>
+            <a target="blank">USCERT &copy; 2016</a>
         </footer>
     </div>
     <script type="text/javascript" src="<?= base_url('bower_components/jquery/dist/jquery.min.js')?>"></script>

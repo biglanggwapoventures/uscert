@@ -128,7 +128,7 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="form-group">
-							<label>Casualty</label>
+							<label>Casualty count</label>
 							<?= form_input('casualty', element('casualty', $data), 'class="form-control"') ?>
 						</div>
 					</div>
@@ -164,15 +164,28 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="form-group">
+							<label>Vehicles used</label>
+							<?= vehicle_multiselect('vehicles_used[]', json_decode(element('vehicles_used', $data, '[]'), TRUE), 'class="form-control vehicles" style="width:100%"')?>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
 							<label>Estimated damage</label>
 							<?= form_input('estimated_damage', element('estimated_damage', $data), 'class="form-control"') ?>
 						</div>
 					</div>
 				</div>
 				<?php if(!element('approved_by', $data, FALSE) && user('login_type', 'a')):?>
-					<div class="checkbox">
+					<div class="radio">
 						<label for="approved">
-							<input type="checkbox" name="is_approved" value="1" id="approved"/> Mark this incident report as approved 
+							<input type="radio" name="status" value="a" id="approved"/> Mark this incident report as <strong class="text-success">approved</strong> 
+						</label>
+						
+					</div>
+					<div class="radio">
+						<label for="rejected">
+							<?= form_radio(['checked' => (bool)element('rejected_by', $data, FALSE), 'name' => 'status', 'value' => 'r', 'id' => 'rejected' ])?>
+							Mark this incident report as <strong class="text-warning">rejected</strong>  
 						</label>
 					</div>
 				<?php endif;?>
@@ -213,6 +226,12 @@
 </div>
 <script>
 	var map, marker, geocoder, rectangle;
+
+	$(document).ready(function(){
+		$('.vehicles').select2({
+			theme: 'bootstrap'
+		});
+	})
 
 	function getAddress(el, e){
 		if(e.keyCode === 13){

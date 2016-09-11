@@ -19,3 +19,17 @@ if(!function_exists('vehicle_type_exists')){
 		return $CI->vtype->exists($id);
 	}
 }
+
+if(!function_exists('vehicle_multiselect')){
+	function vehicle_multiselect($name, $val = FALSE, $attrs = 'class="form-control"')
+	{
+		$CI =& get_instance();
+		$CI->load->model('Vehicle_model', 'v');
+		$data = $CI->v->all();
+		$items = [];
+		foreach($data AS $row){
+			$items[$row['id']] = "{$row['name']} [{$row['plate_number']}]";
+		}
+		return form_multiselect($name, $items, $val, $attrs);
+	}
+}

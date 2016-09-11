@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="<?= base_url('bower_components/bootstrap/dist/css/bootstrap.min.css') ?>">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?= base_url('bower_components/font-awesome/css/font-awesome.min.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('bower_components/select2/dist/css/select2.min.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('bower_components/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css') ?>">
   <link rel="stylesheet" href="<?= base_url('bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') ?>">
   <!-- Theme style -->
@@ -127,6 +129,7 @@
 <script src="<?= base_url('bower_components/moment/min/moment.min.js')?>"></script>
 <script src="<?= base_url('bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js')?>"></script>
 <script type="text/javascript" src="<?= base_url('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')?>"></script>
+<script type="text/javascript" src="<?= base_url('bower_components/select2/dist/js/select2.min.js')?>"></script>
 <script src="<?= base_url('assets/js/app.min.js')?>"></script>
 <script src="<?= base_url('assets/js/common.js')?>"></script>
 <script src="<?= base_url('assets/js/attendance.js')?>"></script>

@@ -443,7 +443,7 @@ $config['csrf_token_name'] = 'uscert_csrf_name';
 $config['csrf_cookie_name'] = 'uscert_csrf_cookie';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
-$config['csrf_exclude_uris'] = array('attendance/modify_log');
+$config['csrf_exclude_uris'] = array('attendance/modify_log', 'gis/save-marker', 'gis/remove-marker');
 
 /*
 |--------------------------------------------------------------------------

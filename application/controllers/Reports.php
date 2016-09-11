@@ -12,8 +12,9 @@ class Reports extends MY_Controller
 	{
 		parent::__construct();
         $this->load->model('Report_model', 'report');
+        // $this->load->model('Vehicle_model', 'vehicle');
         $this->load->helper('date2');
-        $this->load->helper(['organization', 'date2']);
+        $this->load->helper(['organization', 'date2', 'vehicle']);
 	}
 
     function index()
@@ -22,11 +23,19 @@ class Reports extends MY_Controller
         
         if(user('login_type', 'a')){
 
-            if($this->input->get('status') === 'approved'){
-                $this->report->where('r.approved_by IS NOT NULL');
-            }else{
-                $this->report->where('r.approved_by IS NULL');
+            switch($this->input->get('status')){
+                case 'approved': 
+                    $this->report->where('r.approved_by IS NOT NULL');
+                    break;
+                case 'rejected': 
+                    $this->report->where('r.rejected_by IS NOT NULL AND r.approved_by IS NULL');
+                    break;
+                default:
+                    $this->report->where('r.approved_by IS NULL AND r.rejected_by IS NULL');
+                    break;
+
             }
+
             $this->report->where([ 'u.organization_id' => user('organization_id') ]);
 
         }else if(user('login_type', 'v')){
@@ -86,7 +95,7 @@ class Reports extends MY_Controller
         $this->generate_page('manage', [
             'action' => site_url('reports/store'),
             'title' => 'Create new incident report',
-            'data' => []
+            'data' => [],
         ]);
     }
 
@@ -163,6 +172,7 @@ class Reports extends MY_Controller
         $this->form_validation->set_rules('latitude', 'map marker (latitude)', 'required|decimal');
         $this->form_validation->set_rules('formatted_address', ' map marker (full address)', 'required');
         $this->form_validation->set_rules('zoom', ' map marker (zoom value)', 'required|integer');
+        $this->form_validation->set_rules('vehicles_used[]', ' Vehicles used', 'numeric');
         
 
         if(!$this->form_validation->run()){
@@ -173,9 +183,19 @@ class Reports extends MY_Controller
         $data = elements(['incident_type', 'actions_taken', 'other_information', 'alarm', 'casualty', 'investigator', 'structures_involved', 'estimated_damage', 'cause', 'longitude', 'latitude', 'formatted_address', 'zoom'], $input);
         $data['incident_date'] = format_date($input['incident_date'], 'Y-m-d', 'm/d/Y');
 
-        if(user('login_type', 'a') && isset($input['is_approved'])){
-            $data['approved_by'] = user('id'); 
-            $data['approved_at'] = NULL;
+        if(user('login_type', 'a') && isset($input['status']) && in_array($input['status'], ['a', 'r'])){
+            if($input['status'] === 'a'){
+                $data['approved_by'] = user('id'); 
+                $data['approved_at'] = NULL;
+            }else{
+                $data['rejected_by'] = user('id'); 
+                $data['rejected_at'] = NULL;
+            }
+            
+        }
+
+        if(is_array($input['vehicles_used'])){
+            $data['vehicles_used'] = json_encode($input['vehicles_used']);
         }
         
         $key_details = [];
