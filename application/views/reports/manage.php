@@ -5,19 +5,20 @@
 		</h4>
 	</div>
 	<div class="box-body">
-		<?= form_open($action, 'id="ajax" class="clearfix"')?>
-			<div class="callout callout-danger hidden" id="validation-messages">
-				<ul class="list-unstyled"></ul>
-			</div>	
+		
+			
 			<div class="form-group">
 				<label for="">Search for a location</label>
-				<input type="text" class="form-control" onkeyup="getAddress(this, event)"/>
+				<input type="text" class="form-control" onkeyup="getAddress(this, event)" />
 				<span class="help-block" id="real-address"><?= element('formatted_address', $data) ?></span>
 			</div>
 			<div id="map" style="height:30vh;margin-bottom:10px">
 
 			</div>
-			<?php 	?>
+			<?= form_open($action, 'id="ajax" class="clearfix"')?>
+			<div class="callout callout-danger hidden" id="validation-messages">
+				<ul class="list-unstyled"></ul>
+			</div>	
 			<div class="row">
 				<div class="col-sm-3">
 					<div class="form-group">
@@ -230,9 +231,13 @@
 		}
 	})
 
+
 	function getAddress(el, e){
+		e.stopPropagation();
 		if(e.keyCode === 13){
+			// e.preventDefault();
 			geocodeAddress(el.value, geocoder, map);
+			return false;
 		}
 	}
 
