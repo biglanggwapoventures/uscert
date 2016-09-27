@@ -89,7 +89,13 @@ class Reports extends MY_Controller
         }
 
         $items = $this->report->all();
-		$this->generate_page($view, compact('items'));
+
+        if($this->input->get('viewType') === 'print'){
+            $this->load->view('report-print', compact('items'));
+        }else{
+            $this->generate_page($view, compact('items'));
+        }
+		
 	}
 
     function create()

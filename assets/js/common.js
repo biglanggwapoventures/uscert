@@ -75,5 +75,21 @@ $(document).ready(function(){
 	$('.datepicker').datetimepicker({
 		 format: 'MM/DD/YYYY'
 	});
+
+	$('.print-report').click(function(){
+		var form = $('form#report'),
+			data = form.serialize();
+		
+		data += '&viewType=print';
+
+		$.get(form.attr('action'), data)
+			.done(function(response){
+				var w=window.open();
+				w.document.write(response);
+				w.print();
+				w.close();
+			})
+		// .submit()
+	})
 	
 })

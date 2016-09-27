@@ -5,25 +5,23 @@
             <legend>Search for reports</legend>
             <form action="<?= current_url()?>">
                 <div class="row">
-                    <div class="col-sm-6 col-sm-offset-3">
+                    <div class="col-sm-10 col-sm-offset-1">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <label class="control-label">Start date</label>
                                             <?= form_input('start_date', $this->input->get('start_date'), 'class="form-control datepicker"') ?>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <label class="control-label">End date</label>
                                             <?= form_input('end_date', $this->input->get('end_date'), 'class="form-control datepicker"') ?>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Incident Type</label>
                                             <?= form_dropdown(
@@ -34,14 +32,14 @@
                                             ) ?>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <label class="control-label">Organization</label>
                                             <?= organization_dropdown('organization_id', $this->input->get('organization_id'), 'class="form-control"') ?>
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-success btn-block" type="submit">Search!</button>
+                                <button class="btn btn-success pull-right" type="submit">Search</button>
                             </div>
                         </div>
                     </div>

@@ -10,7 +10,7 @@
 			<div class="col-sm-10 col-sm-offset-1">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<?= form_open(current_url(), ['method' => 'GET'])?>
+						<?= form_open(current_url(), ['method' => 'GET', 'id' => 'report'])?>
 						<div class="row">
 							<div class="col-sm-3">
 								<div class="form-group">
@@ -48,6 +48,7 @@
 						<div class="row">
 							
 						</div>
+						<button class="btn btn-primary print-report" type="button">Print</button>
 						<button class="btn btn-success pull-right" type="submit">Search</button>
 						<?= form_close() ?>
 					</div>
