@@ -68,7 +68,7 @@ $(document).ready(function(){
 		var val = $(this).val();
 		$('[data-default=hide]').slideUp().find('input,select').attr('disabled', 'disabled');
 		if(val){
-			$('[data-show='+val+']').slideDown().find('input,select').removeAttr('disabled');;
+			$('[data-show='+val+']').slideDown().find('select,input').removeAttr('disabled');;
 		}
 	}).trigger('change');
 

@@ -2,8 +2,8 @@
 
 class Reports extends MY_Controller
 {
-    protected $tabTitle = 'Reports';
-	protected $contentTitle = 'Reports';
+    protected $tabTitle = 'Incident Reports';
+	protected $contentTitle = 'Incident Reports';
 
 	protected $viewPath = 'reports';
 	protected $resourceName = 'reports';
@@ -20,10 +20,31 @@ class Reports extends MY_Controller
     function index()
 	{
         $view = 'list';
-        
-        if(user('login_type', 'a')){
 
-            switch($this->input->get('status')){
+        $errors = [];
+        $params = [];
+        $input = elements(['start_date', 'end_date', 'organization_id', 'incident_type', 'status'], $this->input->get());
+
+        if(trim($input['start_date'])){
+            if(is_valid_date($input['start_date'], 'm/d/Y')){
+                $params['r.incident_date >='] = format_date($input['start_date'], 'Y-m-d', 'm/d/Y');
+            }
+        }
+
+        if(trim($input['end_date'])){
+            if(is_valid_date($input['end_date'], 'm/d/Y')){
+                $params['r.incident_date <='] = format_date($input['end_date'], 'Y-m-d', 'm/d/Y');
+            }
+        }
+
+        if(trim($input['incident_type'])){
+            if(in_array($input['incident_type'], ['FLOOD', 'CRASH', 'FIRE', 'EARTHQUAKE'])){
+                $params['r.incident_type'] = $input['incident_type'];
+            }
+        }
+
+        if(trim($input['status'])){
+            switch($input['status']){
                 case 'approved': 
                     $this->report->where('r.approved_by IS NOT NULL');
                     break;
@@ -33,37 +54,26 @@ class Reports extends MY_Controller
                 default:
                     $this->report->where('r.approved_by IS NULL AND r.rejected_by IS NULL');
                     break;
-
             }
+        }
 
+        $this->report->where($params);
+
+    
+        if(user('login_type', 'a')){
+            
             $this->report->where([ 'u.organization_id' => user('organization_id') ]);
 
         }else if(user('login_type', 'v')){
 
+            if($this->input->get('show') === 'own'){
+                $this->contentTitle = 'Own Reports';
+                $this->report->where(['r.created_by' => user('id')]);
+            }
             $this->report->where([ 'u.organization_id' => user('organization_id') ]);
 
         }else{
             
-            $errors = [];
-            $params = [];
-            $input = elements(['start_date', 'end_date', 'organization_id', 'incident_type'], $this->input->get());
-
-            if(trim($input['start_date'])){
-                if(is_valid_date($input['start_date'], 'm/d/Y')){
-                     $params['r.incident_date >='] = format_date($input['start_date'], 'Y-m-d', 'm/d/Y');
-                }else{
-                    $errors[] = 'Search criteria for start date ignored. Reason: INVALID FORMAT. MUST USE MM/DD/YYYY';
-                }
-            }
-
-            if(trim($input['end_date'])){
-                if(is_valid_date($input['end_date'], 'm/d/Y')){
-                     $params['r.incident_date <='] = format_date($input['end_date'], 'Y-m-d', 'm/d/Y');
-                }else{
-                    $errors[] = 'Search criteria for end date ignored. Reason: INVALID FORMAT. MUST USE MM/DD/YYYY';
-                }
-            }
-
             if(trim($input['organization_id'])){
                 if(organization_exists($input['organization_id'])){
                      $params['u.organization_id'] = $input['organization_id'];
@@ -71,16 +81,8 @@ class Reports extends MY_Controller
                     $errors[] = 'Search criteria for organization ignored. Reason: ORGANIZATION PROVIDED IS INVALID.';
                 }
             }
-
-            if(trim($input['incident_type'])){
-                if(in_array($input['incident_type'], ['FLOOD', 'CRASH', 'MOTOR', 'EARTHQUAKE'])){
-                     $params['r.incident_type'] = $input['incident_type'];
-                }else{
-                    $errors[] = 'Search criteria for incident type ignored. Reason: INCIDENT TYPE PROVIDED IS INVALID.';
-                }
-            }
-
-            $this->report->where($params)->where('approved_by IS NOT NULL');
+            
+            $this->report->where('approved_by IS NOT NULL');
 
             $view = 'master';
 

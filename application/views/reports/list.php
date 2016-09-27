@@ -6,6 +6,54 @@
 			<i class="fa fa-plus"></i> New report
 		</a>
 		<?php endif;?>
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<?= form_open(current_url(), ['method' => 'GET'])?>
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label class="control-label">Start date</label>
+									<?= form_input('start_date', $this->input->get('start_date'), 'class="form-control datepicker"') ?>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label class="control-label">End date</label>
+									<?= form_input('end_date', $this->input->get('end_date'), 'class="form-control datepicker"') ?>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Incident Type</label>
+									<?= form_dropdown(
+										'incident_type', 
+										['' => '', 'FLOOD' => 'FLOOD', 'CRASH' => 'CAR/MOTOR CRASH', 'EARTHQUAKE' => 'EARTHQUAKE', 'FIRE' => 'FIRE'], 
+										$this->input->get('incident_type'),
+										'class="form-control"'
+									) ?>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label class="control-label">Status</label>
+									<?= form_dropdown('status', 
+										['' => '', 'approved' => 'Approved', 'rejected' => 'Rejected', 'pending' => 'Pending'],
+										$this->input->get('status'),
+										'class="form-control"') ?>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							
+						</div>
+						<button class="btn btn-success pull-right" type="submit">Search</button>
+						<?= form_close() ?>
+					</div>
+				</div>
+			</div>
+		</div>
 		<table class="table table-bordered clearfix">
 			<thead>
 				<tr>

@@ -68,11 +68,11 @@
                 </a>
                 <ul class="treeview-menu">
                     <?php $status = $this->input->get('status');?>
-                    <li class="<?= $inIncidentsPage && !in_array($status, ['approved', 'rejected']) ? 'active' : '' ?>">
-                        <a href="<?= site_url('reports?status=pending') ?>"><i class="fa fa-circle-o"></i> Pending</a>
-                    </li>
                     <li class="<?= $inIncidentsPage && $status === 'approved' ? 'active' : '' ?>">
                         <a href="<?= site_url('reports?status=approved') ?>"><i class="fa fa-circle-o"></i> Approved</a>
+                    </li>
+                    <li class="<?= $inIncidentsPage && !in_array($status, ['approved', 'rejected']) ? 'active' : '' ?>">
+                        <a href="<?= site_url('reports?status=pending') ?>"><i class="fa fa-circle-o"></i> Pending</a>
                     </li>
                     <li class="<?= $inIncidentsPage && $status === 'rejected' ? 'active' : '' ?>">
                         <a href="<?= site_url('reports?status=rejected') ?>"><i class="fa fa-circle-o"></i> Rejected</a>
@@ -92,8 +92,20 @@
             <li class="<?= $visited  === 'dashboard' ? 'active' : '' ?>">
                 <a href="<?= site_url('dashboard') ?>"><i class="fa fa-home"></i> <span>Home</span></a>
             </li>
-             <li class="<?= $visited === 'reports' ? 'active' : '' ?>">
-                <a href="<?= site_url('reports') ?>"><i class="fa fa-list-alt"></i> <span>Reports</span></a>
+            <?php $inIncidentsPage = in_array($visited, ['reports']); ?>
+            <li class="<?= $inIncidentsPage ? 'active' : '' ?> treeview">
+                <a href="#">
+                    <i class="fa fa-list-alt"></i> <span>Incident Reports</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="<?= site_url('reports') ?>"><i class="fa fa-circle-o"></i> All</a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('reports?show=own') ?>"><i class="fa fa-circle-o"></i> My Reports</a>
+                    </li>
+                    
+                </ul>
             </li>
             <li class="<?= $visited === 'gis' ? 'active' : '' ?>">
                 <a href="<?= site_url('gis') ?>"><i class="fa fa-globe"></i> <span>GIS</span></a>
