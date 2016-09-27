@@ -26,7 +26,7 @@ class Report_model extends MY_Model
 	{
 		$data = $this->db->select('r.*, u.login_username AS responder, o.name AS organization, ua.login_username AS approver')
 			->from($this->table.' AS r')
-			->join('users AS u', 'u.id = r.created_by')
+			->join('users AS u', 'u.id = r.created_by', 'left')
 			->join('users AS ua', 'ua.id = r.approved_by', 'left')
 			->join('organizations AS o', 'o.id = u.organization_id', 'left')
 			->order_by('incident_date DESC, id DESC')
