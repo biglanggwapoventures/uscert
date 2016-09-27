@@ -202,9 +202,7 @@ class Reports extends MY_Controller
             
         }
 
-        if(is_array($input['vehicles_used'])){
-            $data['vehicles_used'] = json_encode($input['vehicles_used']);
-        }
+         $data['vehicles_used'] =  json_encode( !empty($input['vehicles_used']) ? $input['vehicles_used'] : []);
         
         $key_details = [];
 
