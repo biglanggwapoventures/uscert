@@ -1,25 +1,39 @@
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-sm-10 col-sm-offset-1">
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                 <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
             </ol>
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iOTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDkwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzkwMHg1MDAvYXV0by8jNzc3OiM1NTUvdGV4dDpGaXJzdCBzbGlkZQpDcmVhdGVkIHdpdGggSG9sZGVyLmpzIDIuNi4wLgpMZWFybiBtb3JlIGF0IGh0dHA6Ly9ob2xkZXJqcy5jb20KKGMpIDIwMTItMjAxNSBJdmFuIE1hbG9waW5za3kgLSBodHRwOi8vaW1za3kuY28KLS0+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48IVtDREFUQVsjaG9sZGVyXzE1NzZiZGZiZmI0IHRleHQgeyBmaWxsOiM1NTU7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6NDVwdCB9IF1dPjwvc3R5bGU+PC9kZWZzPjxnIGlkPSJob2xkZXJfMTU3NmJkZmJmYjQiPjxyZWN0IHdpZHRoPSI5MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjNzc3Ii8+PGc+PHRleHQgeD0iMzA4LjI5Njg3NSIgeT0iMjcwLjEiPkZpcnN0IHNsaWRlPC90ZXh0PjwvZz48L2c+PC9zdmc+" alt="...">
-                <div class="carousel-caption">
-                    ...
-                </div>
+                    <img src="<?= base_url('assets/img/slider/picture_one.jpg')?>" alt="..." class="img-responsive center-block">
+                    <div class="carousel-caption">
+                        Adrian NAtabio Gwapo
+                    </div>
                 </div>
                 <div class="item">
-                <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iOTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDkwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzkwMHg1MDAvYXV0by8jNjY2OiM0NDQvdGV4dDpTZWNvbmQgc2xpZGUKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTc2YmRmODNlYSB0ZXh0IHsgZmlsbDojNDQ0O2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjQ1cHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1NzZiZGY4M2VhIj48cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iIzY2NiIvPjxnPjx0ZXh0IHg9IjI2NC45NTMxMjUiIHk9IjI3MC4xIj5TZWNvbmQgc2xpZGU8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" alt="...">
-                <div class="carousel-caption">
-                    ...
+                    <img src="<?= base_url('assets/img/slider/picture_four.jpg')?>" alt="..." class="img-responsive center-block">
+                    <div class="carousel-caption">
+                        ...
+                    </div>
                 </div>
+                <div class="item">
+                    <img src="<?= base_url('assets/img/slider/picture_three.jpg')?>" alt="..." class="img-responsive center-block">
+                    <div class="carousel-caption">
+                        ...
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="<?= base_url('assets/img/slider/jfbgjgrsjsg.jpg')?>" alt="..." class="img-responsive center-block">
+                    <div class="carousel-caption">
+                        ...
+                    </div>
                 </div>
             </div>
 
@@ -35,15 +49,23 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" style="margin-top:20px;">
     <div class="col-sm-4">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title text-center">
-                    Vision
+                   <b>Vision</b>
                 </h4>
-            </div>
+            </div>  
             <div class="panel-body">
+                <h4 class="panel-title text-center">
+                    <p></p><center>The NSTP-DRRM Program and NSRC operating hand in hand with USCERT commit:<br><br>
+*to contribute in creating a caring society where every individual is responsible in protecting other people’s lives and properties<br><br>
+*to contribute in creating a university environment where each members feel safe and protected<br><br>
+*to become and remain caring witnesses to the Word who are willing…<br><br>
+ …to serve;<br><br>
+ …to protect, and <br><br>
+…to help save lives as Witnesses to the Word!</center><p></p>
             </div>
         </div>
     </div>
@@ -52,10 +74,15 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title text-center">
-                    Mission
+                   <b>Mission</b>
                 </h4>
             </div>
             <div class="panel-body">
+                <h4 class="panel-title text-center">
+                    <p></p>The National Service Training Program-National Service Reserve Corps (NSTP-NSRC) of the University of San Carlos (USC) commits to the formation and creation of programs that aligns with the DRRM implementing guidelines and procedures as provided for in Section 13 of RA 10121.<br><br>
+                    The program totally involves all sectors of the university community to become more equipped and at all times ready to respond to any forms of emergency and disasters within the school campuses and to the broader segment---to the community where they belong and to the society in general.<br><br>
+The NSTP-DRRM Program and the National Service Reserve Corps (NSRC) operate under the USC-Emergency Response Team (USCERT) of which all are committed to make the university a safe zone. <p></p>
+
             </div>
         </div>
     </div>
@@ -64,10 +91,13 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title text-center">
-                    Goal
+                    <b>Goal</b>
                 </h4>
             </div>
             <div class="panel-body">
+                <h4 class="panel-title text-center">
+                    <p></p><q>To create a community whose members are at all times ready and prepared to respond in times of disasters and calamities (natural or man-made).</q><p></p>
+
             </div>
         </div>
     </div>
