@@ -307,3 +307,4 @@
 	}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBb9gjcZGig7KAgoJC1EmMHA98Rp8Ayz98&callback=initMap" async defer></script>
+<script type="text/javascript" src="<?= base_url('bower_components/')?>"></script>

@@ -11,7 +11,7 @@
 					data-delete-url="<?= site_url('volunteers/delete') ?>">
 					<thead>
 						<tr>
-							<th>Name</th><th>Login username</th><th>Organization</th><th></th>
+							<th>Name</th><th>Login username</th><th>Organization</th><th>Locked?</th><th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -20,6 +20,7 @@
 								<td><?= $i['fullname'] ?: '<em class="text-danger">Not supplied</em>' ?></td>
 								<td><?= $i['login_username'] ?></td>
 								<td><?= $i['organization'] ?></td>
+								<td><?= (int)$i['locked'] ? '<i class="fa fa-lock"></i> LOCKED' : '' ?></td>
 								<td>
 									<a class="btn btn-info btn-xs" href="<?= site_url("volunteers/edit/{$i['id']}") ?>"><i class="fa fa-pencil"></i> Edit</a>
 									<a class="btn btn-danger btn-xs remove-line"><i class="fa fa-times "></i> Delete</a>

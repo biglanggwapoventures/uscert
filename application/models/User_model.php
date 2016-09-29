@@ -39,7 +39,7 @@ class User_model extends MY_Model
 
 	function get($id)
 	{
-		return $this->db->select('u.login_username, u.login_type, o.name AS organization, p.*')
+		return $this->db->select('u.login_username, u.login_type, o.name AS organization, p.*, u.locked')
 			->from($this->table. ' AS u')
 			->join('persons AS p', 'p.id = u.person_id', 'left')
 			->join('organizations AS o', 'o.id = u.organization_id', 'left')
@@ -89,6 +89,15 @@ class User_model extends MY_Model
 			return $this->db->trans_status();
 
 		}
+		
+	}
+
+	function is_locked($username)
+	{
+		return $this->db->get_where($this->table, [
+			'login_username' => $username,
+			'locked' => 1
+		])->num_rows() > 0;
 	}
 
 

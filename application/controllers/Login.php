@@ -14,7 +14,11 @@ class Login extends CI_Controller {
 	{
 		$this->output->set_content_type('json');
 
-		$this->form_validation->set_rules('login_username', 'username', 'required');
+		$this->form_validation->set_rules('login_username', 'username', ['required', [
+			'validate_locked', function($username){
+				return !$this->user->is_locked($username);
+			}
+		]], ['validate_locked' => 'Account is locked. Please contact administrator']);
 		$this->form_validation->set_rules('login_password', 'password', 'required');
 
 		if(!$this->form_validation->run()){

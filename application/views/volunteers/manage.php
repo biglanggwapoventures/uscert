@@ -30,6 +30,13 @@
 						<label for="password_confirmation">Confirm password</label>
 						<?= form_password('password_confirmation', FALSE, 'class="form-control" id="password_confirmation"') ?>
 					</div>
+					<div class="checkbox">
+						<label for="block">
+							<?= form_checkbox(['name' => 'locked', 'id' => 'block', 'value' => 1, 'checked' => (bool)element('locked', $data)])?>
+							Block this user from logging in?
+						</label>
+					</div>
+					<hr>
 					<button type="submit" class="btn btn-success">Submit</button>
 					<a class="btn btn-default pull-right" href="<?= site_url('volunteers') ?>" id="back">Back</a>
 				</div><!-- /.tab-pane -->

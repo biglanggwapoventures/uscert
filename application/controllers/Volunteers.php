@@ -149,10 +149,13 @@ class Volunteers extends MY_Controller
 			$this->form_validation->set_rules('password_confirmation', 'password confirmation', "required|matches[login_password]");
 		}
 
+		$data = elements(['login_username', 'login_password', 'organization_id'], $this->input->post());
+		$data['locked'] = $this->input->post('locked') ? 1 : 0;
+
 		if($this->form_validation->run()){
 			return [
 				'result' => TRUE,
-				'data' => elements(['login_username', 'login_password', 'organization_id'], $this->input->post()),
+				'data' => $data,
 				'extra' => $this->input->post('skills')
 			];
 		}

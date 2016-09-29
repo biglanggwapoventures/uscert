@@ -32,9 +32,11 @@ class Report_model extends MY_Model
 			->order_by('incident_date DESC, id DESC')
 			->get()
 			->result_array();
+
 		foreach($data AS &$row){
 			$row['key_details'] = json_decode($row['key_details'], TRUE);
 		}
+		
 		return $data;
 	}
 
