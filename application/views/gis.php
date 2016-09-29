@@ -3,6 +3,11 @@
     <input type="text" class="form-control" name="search" onkeyup="getAddress(this, event)"/>
   </div>
 </form>
+<?php if(user('login_type') !== 'sa'): ?>
+<div class="alert alert-info">
+  Click anywhere on the map to add new water source. 
+</div>
+<?php endif; ?>
 <div id="map" style="height:80vh" data-fetch="<?= site_url('gis/get-reports')?>" data-fetch-hydrant="<?= site_url('gis/get-markers')?>"> 
 
 </div>
@@ -164,7 +169,9 @@
         google.maps.event.addListener(map, 'click', function(event) {
           geocoder.geocode({'latLng': event.latLng}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
+              <?php if(user('login_type') !== 'sa'):?>
               setHydrantMarker(event.latLng, results[0].formatted_address, false, null)
+              <?php endif; ?>
             }
           });
         });

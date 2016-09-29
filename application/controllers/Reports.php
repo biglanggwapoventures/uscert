@@ -46,12 +46,15 @@ class Reports extends MY_Controller
         if(trim($input['status'])){
             switch($input['status']){
                 case 'approved': 
+                    $this->contentTitle  = 'Approved '.$this->contentTitle;
                     $this->report->where('r.approved_by IS NOT NULL');
                     break;
                 case 'rejected': 
+                     $this->contentTitle  = 'Rejected '.$this->contentTitle;
                     $this->report->where('r.rejected_by IS NOT NULL AND r.approved_by IS NULL');
                     break;
                 default:
+                    $this->contentTitle  = 'Pending '.$this->contentTitle;
                     $this->report->where('r.approved_by IS NULL AND r.rejected_by IS NULL');
                     break;
             }
@@ -117,7 +120,9 @@ class Reports extends MY_Controller
         $data += $data['key_details'];
         unset($data['key_details']);
 
-        $this->generate_page('manage', [
+        $view = user('login_type', 'a') ? 'view' : 'manage';
+
+        $this->generate_page($view, [
             'action' => site_url("reports/update/{$id}"),
             'title' => "Update incident report # {$id}",
             'data' => $data
@@ -165,32 +170,55 @@ class Reports extends MY_Controller
 
     function validate()
     {
-        $this->form_validation->set_rules('incident_date', 'incident date', ['required', [
+        $input = $this->input->post();
+        if(user('login_type', 'v')){
+            $this->form_validation->set_rules('incident_date', 'incident date', ['required', [
             'valid_date', function($val){
 
             }
-        ]], ['valid_date' => 'Please provide a valid date with format: MM/DD/YYYY']);
-        $this->form_validation->set_rules('incident_type', 'incident type', 'required|in_list[FLOOD,FIRE,EARTHQUAKE,CRASH]', ['in_list' => 'Please provide the %s.']);
-        $this->form_validation->set_rules('alarm', 'alarm', 'required');
-        $this->form_validation->set_rules('casualty', 'casualty', 'required');
-        $this->form_validation->set_rules('investigator', 'investigator', 'required');
-        $this->form_validation->set_rules('actions_taken', 'actions taken', 'required');
-        $this->form_validation->set_rules('estimated_damage', 'estimated damage');
-        $this->form_validation->set_rules('longitude', 'map marker (longitude)', 'required|decimal');
-        $this->form_validation->set_rules('latitude', 'map marker (latitude)', 'required|decimal');
-        $this->form_validation->set_rules('formatted_address', ' map marker (full address)', 'required');
-        $this->form_validation->set_rules('zoom', ' map marker (zoom value)', 'required|integer');
-        $this->form_validation->set_rules('vehicles_used[]', ' Vehicles used', 'numeric');
-        
+            ]], ['valid_date' => 'Please provide a valid date with format: MM/DD/YYYY']);
+            $this->form_validation->set_rules('incident_type', 'incident type', 'required|in_list[FLOOD,FIRE,EARTHQUAKE,CRASH]', ['in_list' => 'Please provide the %s.']);
+            $this->form_validation->set_rules('alarm', 'alarm', 'required');
+            $this->form_validation->set_rules('casualty', 'casualty', 'required');
+            $this->form_validation->set_rules('investigator', 'investigator', 'required');
+            $this->form_validation->set_rules('actions_taken', 'actions taken', 'required');
+            $this->form_validation->set_rules('estimated_damage', 'estimated damage', 'numeric');
+            $this->form_validation->set_rules('longitude', 'map marker (longitude)', 'required|decimal');
+            $this->form_validation->set_rules('latitude', 'map marker (latitude)', 'required|decimal');
+            $this->form_validation->set_rules('formatted_address', ' map marker (full address)', 'required');
+            $this->form_validation->set_rules('zoom', ' map marker (zoom value)', 'required|integer');
+            $this->form_validation->set_rules('vehicles_used[]', ' Vehicles used', 'numeric');
+            
 
-        if(!$this->form_validation->run()){
-            return [ 'result' => FALSE, 'errors' => $this->form_validation->errors() ];
+            if(!$this->form_validation->run()){
+                return [ 'result' => FALSE, 'errors' => $this->form_validation->errors() ];
+            }
+
+            $data = elements(['incident_type', 'actions_taken', 'other_information', 'alarm', 'casualty', 'investigator', 'structures_involved', 'estimated_damage', 'cause', 'longitude', 'latitude', 'formatted_address', 'zoom'], $input);
+            $data['incident_date'] = format_date($input['incident_date'], 'Y-m-d', 'm/d/Y');
+            $data['vehicles_used'] =  json_encode( !empty($input['vehicles_used']) ? $input['vehicles_used'] : []);
+
+            $key_details = [];
+
+            switch($data['incident_type']){
+                case Report_model::TYPE_FLOOD:
+                    $key_details = elements(['watershed', 'river', 'intensity', 'cumulative_rainfall'], $input, '');
+                    break;
+                case Report_model::TYPE_CRASH:
+                    $key_details = elements(['vehicle_type', 'location'], $input, '');
+                    break;
+                case Report_model::TYPE_EARTHQUAKE:
+                    $key_details = elements(['magnitude_depth', 'main_cities_affected', 'primary_province', 'other_provinces_impacted'], $input, '');
+                    break;
+                case Report_model::TYPE_FIRE:
+                    $key_details = elements(['alarm_level', 'location'], $input, '');
+                    break;
+            }
+
+            $data['key_details'] = json_encode($key_details);
+
         }
-
-        $input = $this->input->post();
-        $data = elements(['incident_type', 'actions_taken', 'other_information', 'alarm', 'casualty', 'investigator', 'structures_involved', 'estimated_damage', 'cause', 'longitude', 'latitude', 'formatted_address', 'zoom'], $input);
-        $data['incident_date'] = format_date($input['incident_date'], 'Y-m-d', 'm/d/Y');
-
+       
         if(user('login_type', 'a') && isset($input['status']) && in_array($input['status'], ['a', 'r'])){
             if($input['status'] === 'a'){
                 $data['approved_by'] = user('id'); 
@@ -201,27 +229,6 @@ class Reports extends MY_Controller
             }
             
         }
-
-         $data['vehicles_used'] =  json_encode( !empty($input['vehicles_used']) ? $input['vehicles_used'] : []);
-        
-        $key_details = [];
-
-        switch($data['incident_type']){
-            case Report_model::TYPE_FLOOD:
-                $key_details = elements(['watershed', 'river', 'intensity', 'cumulative_rainfall'], $input, '');
-                break;
-            case Report_model::TYPE_CRASH:
-                $key_details = elements(['vehicle_type', 'location'], $input, '');
-                break;
-            case Report_model::TYPE_EARTHQUAKE:
-                $key_details = elements(['magnitude_depth', 'main_cities_affected', 'primary_province', 'other_provinces_impacted'], $input, '');
-                break;
-            case Report_model::TYPE_FIRE:
-                $key_details = elements(['alarm_level', 'location'], $input, '');
-                break;
-        }
-
-        $data['key_details'] = json_encode($key_details);
 
         return [
             'result' => TRUE,

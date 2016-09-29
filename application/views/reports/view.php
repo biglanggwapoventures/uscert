@@ -1,17 +1,10 @@
-<div class="box box-solid" data-modify-fields="<?= user('login_type', 'a') ? 'readonly'  : ''; ?>">
+<div class="box box-solid">
 	<div class="box-header">
 		<h4 class="box-title">
 			<?= $title ?>
 		</h4>
 	</div>
 	<div class="box-body">
-		
-			
-			<div class="form-group">
-				<label for="">Search for a location</label>
-				<input type="text" class="form-control" onkeyup="getAddress(this, event)" />
-				<span class="help-block" id="real-address"><?= element('formatted_address', $data) ?></span>
-			</div>
 			<div id="map" style="height:30vh;margin-bottom:10px">
 
 			</div>
@@ -23,18 +16,15 @@
 				<div class="col-sm-3">
 					<div class="form-group">
 						<label>Incident Date</label>
-						<?= form_input('incident_date', element('incident_date', $data), "class=\"form-control datepicker\"") ?>
+                       
+                        <p class="form-control-static"><?= element('incident_date', $data)?></p>
 					</div>
 				</div>
 				<div class="col-sm-3">
 					<div class="form-group">
 						<label>Incident Type</label>
-						<?= form_dropdown(
-							'incident_type', 
-							['' => '', 'FLOOD' => 'FLOOD', 'CRASH' => 'CAR/MOTOR CRASH', 'EARTHQUAKE' => 'EARTHQUAKE', 'FIRE' => 'FIRE'], 
-							element('incident_type', $data, ''),
-							"class=\"form-control\""
-						) ?>
+                         <input type="hidden" name="incident_type" value="<?=  element('incident_type', $data)?>">
+						 <p class="form-control-static"><?= element('incident_type', $data)?></p>
 					</div>
 				</div>
 			</div>
@@ -43,13 +33,13 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 							<label>Alarm Level</label>
-							<?= form_dropdown('alarm_level', ['' => '', 'Alarm Level 1' => 'Alarm Level 1', 'Alarm Level 2' => 'Alarm Level 2', 'Alarm Level 3' => 'Alarm Level 3', 'Alarm Level 4' => 'Alarm Level 4'],  element('alarm_level', $data), 'class="form-control"')?>
+							 <p class="form-control-static"><?= element('alarm_level', $data)?></p>
 						</div>
 					</div>
 					<div class="col-sm-9">
 						<div class="form-group">
 							<label>Location</label>
-							<?= form_input('location', element('location', $data), 'class="form-control"') ?>
+							 <p class="form-control-static"><?= element('location', $data)?></p>
 						</div>
 					</div>
 				</div>
@@ -59,13 +49,13 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 							<label>Magnitude Depth</label>
-							<?= form_input('magnitude_depth', element('magnitude_depth', $data), 'class="form-control"') ?>
+							 <p class="form-control-static"><?= element('magnitude_depth', $data)?></p>
 						</div>
 					</div>
 					<div class="col-sm-9">
 						<div class="form-group">
 							<label>Main Cities Affected</label>
-							<?= form_input('main_cities_affected', element('main_cities_affected', $data), 'class="form-control"') ?>
+							 <p class="form-control-static"><?= element('main_cities_affected', $data)?></p>
 						</div>
 					</div>
 				</div>
@@ -73,13 +63,13 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 							<label>Primary Province</label>
-							<?= form_input('primary_province', element('primary_province', $data), 'class="form-control"') ?>
+                             <p class="form-control-static"><?= element('primary_province', $data)?></p>
 						</div>
 					</div>
 					<div class="col-sm-9">
 						<div class="form-group">
 							<label>Other Provinces Impacted</label>
-							<?= form_input('other_provinces_impacted', element('other_provinces_impacted', $data), 'class="form-control"') ?>
+                            <p class="form-control-static"><?= element('other_provinces_impacted', $data)?></p>
 						</div>
 					</div>
 				</div>
@@ -89,25 +79,25 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 							<label>Watershed</label>
-							<?= form_input('watershed', element('watershed', $data), 'class="form-control"') ?>
+                             <p class="form-control-static"><?= element('watershed', $data)?></p>
 						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="form-group">
 							<label>River</label>
-							<?= form_input('river', element('river', $data), 'class="form-control"') ?>
+                            <p class="form-control-static"><?= element('river', $data)?></p>
 						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="form-group">
 							<label>Intensity</label>
-							<?= form_input('intensity', element('intensity', $data), 'class="form-control"') ?>
+                             <p class="form-control-static"><?= element('intensity', $data)?></p>
 						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="form-group">
 							<label>Cumulative Rainfall</label>
-							<?= form_input('cumulative_rainfall', element('cumulative_rainfall', $data), 'class="form-control"') ?>
+                            <p class="form-control-static"><?= element('cumulative_rainfall', $data)?></p>
 						</div>
 					</div>
 				</div>
@@ -117,13 +107,13 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 							<label>Vehicle type</label>
-							<?= form_input('vehicle_type', element('vehicle_type', $data), 'class="form-control"') ?>
+                            <p class="form-control-static"><?= element('vehicle_type', $data)?></p>
 						</div>
 					</div>
 					<div class="col-sm-9">
 						<div class="form-group">
 							<label>Location</label>
-							<?= form_input('location', element('location', $data), 'class="form-control"') ?>
+                            <p class="form-control-static"><?= element('location', $data)?></p>
 						</div>
 					</div>
 				</div>
@@ -132,19 +122,19 @@
 				<div class="col-sm-3">
 					<div class="form-group">
 						<label>Alarm</label>
-						<?= form_input('alarm', element('alarm', $data), 'class="form-control"') ?>
+                        <p class="form-control-static"><?= element('alarm', $data)?></p>
 					</div>
 				</div>
 				<div class="col-sm-3">
 					<div class="form-group">
 						<label>Casualty count</label>
-						<?= form_input('casualty', element('casualty', $data), 'class="form-control"') ?>
+                        <p class="form-control-static"><?= element('casualty', $data)?></p>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label>Investegator</label>
-						<?= form_input('investigator', element('investigator', $data), 'class="form-control"') ?>
+                        <p class="form-control-static"><?= element('investigator', $data)?></p>
 					</div>
 				</div>
 			</div>
@@ -152,21 +142,21 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label>Actions Taken</label>
-						<?= form_textarea('actions_taken', element('actions_taken', $data), 'class="form-control"')?>
+                        <p class="form-control-static"><?= element('actions_taken', $data)?></p>
 					</div>
 					<div class="form-group">
 						<label>Other Information</label>
-						<?= form_textarea('other_information', element('other_information', $data), 'class="form-control"')?>
+                        <p class="form-control-static"><?= element('other_information', $data)?></p>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label>Structures Involved</label>
-						<?= form_textarea('structures_involved', element('structures_involved', $data), 'class="form-control"')?>
+                        <p class="form-control-static"><?= element('structures_involved', $data)?></p>
 					</div>
 					<div class="form-group">
 						<label>Cause (if applicable)</label>
-						<?= form_textarea('cause', element('cause', $data), 'class="form-control"')?>
+                        <p class="form-control-static"><?= element('cause', $data)?></p>
 					</div>
 				</div>
 			</div>
@@ -174,13 +164,13 @@
 				<div class="col-sm-4">
 					<div class="form-group">
 						<label>Vehicles used</label>
-						<?= vehicle_multiselect('vehicles_used[]', json_decode(element('vehicles_used', $data, '[]'), TRUE), 'class="form-control vehicles" style="width:100%"')?>
+						<?= vehicle_multiselect('vehicles_used[]', json_decode(element('vehicles_used', $data, '[]'), TRUE), 'class="form-control vehicles" style="width:100%" disabled')?>
 					</div>
 				</div>
 				<div class="col-sm-4">
 					<div class="form-group">
 						<label>Estimated damage</label>
-						<?= form_input('estimated_damage', element('estimated_damage', $data), 'class="form-control"') ?>
+                        <p class="form-control-static"><?= element('estimated_damage', $data)?></p>
 					</div>
 				</div>
 			</div>

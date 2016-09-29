@@ -68,13 +68,13 @@
                 </a>
                 <ul class="treeview-menu">
                     <?php $status = $this->input->get('status');?>
-                    <li class="<?= $inIncidentsPage && $status === 'approved' ? 'active' : '' ?>">
+                    <li>
                         <a href="<?= site_url('reports?status=approved') ?>"><i class="fa fa-circle-o"></i> Approved</a>
                     </li>
-                    <li class="<?= $inIncidentsPage && !in_array($status, ['approved', 'rejected']) ? 'active' : '' ?>">
+                    <li>
                         <a href="<?= site_url('reports?status=pending') ?>"><i class="fa fa-circle-o"></i> Pending</a>
                     </li>
-                    <li class="<?= $inIncidentsPage && $status === 'rejected' ? 'active' : '' ?>">
+                    <li>
                         <a href="<?= site_url('reports?status=rejected') ?>"><i class="fa fa-circle-o"></i> Rejected</a>
                     </li>
                 </ul>

@@ -11,7 +11,7 @@
 					data-delete-url="<?= site_url('admins/delete') ?>">
 					<thead>
 						<tr>
-							<th>Name</th><th><th>Login username</th><th>Organization</th></th>
+							<th>Name</th><th>Login username</th><th>Organization</th><th></th>
 						</tr>
 					</thead>
 					<tbody>

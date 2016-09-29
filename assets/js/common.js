@@ -64,11 +64,11 @@ $(document).ready(function(){
 	});
 
 
-	$('select[name=incident_type]').change(function(){
+	$('[name=incident_type]').change(function(){
 		var val = $(this).val();
-		$('[data-default=hide]').slideUp().find('input,select').attr('disabled', 'disabled');
+		$('[data-default=hide]').slideUp().find('input,select');
 		if(val){
-			$('[data-show='+val+']').slideDown().find('select,input').removeAttr('disabled');;
+			$('[data-show='+val+']').slideDown().find('select,input');
 		}
 	}).trigger('change');
 
