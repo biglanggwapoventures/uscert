@@ -1,1 +1,1 @@
-ALTER TABLE administrator ADD  TINYINT(1) NOT NULL DEFAULT '0' AFTER ;
+ALTER TABLE `users` ADD `locked` TINYINT(1) NOT NULL DEFAULT '0' AFTER `login_type`;
