@@ -132,7 +132,7 @@
 				<div class="col-sm-3">
 					<div class="form-group">
 						<label>Alarm</label>
-						<?= form_input('alarm', element('alarm', $data), 'class="form-control"') ?>
+						<?= form_input('alarm', element('alarm', $data), 'class="form-control timepicker"') ?>
 					</div>
 				</div>
 				<div class="col-sm-3">
@@ -307,4 +307,3 @@
 	}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBb9gjcZGig7KAgoJC1EmMHA98Rp8Ayz98&callback=initMap" async defer></script>
-<script type="text/javascript" src="<?= base_url('bower_components/')?>"></script>

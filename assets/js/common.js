@@ -76,6 +76,10 @@ $(document).ready(function(){
 		 format: 'MM/DD/YYYY'
 	});
 
+	$('.timepicker').datetimepicker({
+		 format: 'h:mm A'
+	});
+
 	$('.print-report').click(function(){
 		var form = $('form#report'),
 			data = form.serialize();
