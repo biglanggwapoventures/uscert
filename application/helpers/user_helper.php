@@ -35,3 +35,21 @@ if(!function_exists('user')){
 		return $val ? $user === $val : $user;
 	}
 }
+
+
+if(!function_exists('user_multiselect')){
+	function user_multiselect($name, $val = FALSE, $attrs = 'class="form-control"', $within_org_only = FALSE)
+	{
+		$CI =& get_instance();
+		$CI->load->model('User_model', 'u');
+		if($within_org_only){
+			$CI->u->where(['organization_id' => user('organization_id')]);
+		}
+		$data = $CI->u->all();
+		foreach($data AS $row){
+			$items[$row['id']] = $row['fullname'] ? "{$row['fullname']} (@{$row['login_username']})" : $row['login_username'];
+		}
+	
+		return form_multiselect($name, $items, $val, $attrs);
+	}
+}

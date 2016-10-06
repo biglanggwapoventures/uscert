@@ -21,10 +21,13 @@ if(!function_exists('vehicle_type_exists')){
 }
 
 if(!function_exists('vehicle_multiselect')){
-	function vehicle_multiselect($name, $val = FALSE, $attrs = 'class="form-control"')
+	function vehicle_multiselect($name, $val = FALSE, $attrs = 'class="form-control"', $within_org_only = FALSE)
 	{
 		$CI =& get_instance();
 		$CI->load->model('Vehicle_model', 'v');
+		if($within_org_only){
+			$CI->v->where(['organization_id' => user('organization_id')]);
+		}
 		$data = $CI->v->all();
 		$items = [];
 		foreach($data AS $row){

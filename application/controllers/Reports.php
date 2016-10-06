@@ -65,7 +65,7 @@ class Reports extends MY_Controller
     
         if(user('login_type', 'a')){
             
-            $this->report->where([ 'u.organization_id' => user('organization_id') ]);
+            $this->report->where([ 'r.organization_id' => user('organization_id') ]);
 
         }else if(user('login_type', 'v')){
 
@@ -73,7 +73,7 @@ class Reports extends MY_Controller
                 $this->contentTitle = 'Own Reports';
                 $this->report->where(['r.created_by' => user('id')]);
             }
-            $this->report->where([ 'u.organization_id' => user('organization_id') ]);
+            $this->report->where([ 'r.organization_id' => user('organization_id') ]);
 
         }else{
             
@@ -197,6 +197,8 @@ class Reports extends MY_Controller
             $data = elements(['incident_type', 'actions_taken', 'other_information', 'alarm', 'casualty', 'investigator', 'structures_involved', 'estimated_damage', 'cause', 'longitude', 'latitude', 'formatted_address', 'zoom'], $input);
             $data['incident_date'] = format_date($input['incident_date'], 'Y-m-d', 'm/d/Y');
             $data['vehicles_used'] =  json_encode( !empty($input['vehicles_used']) ? $input['vehicles_used'] : []);
+            $data['tagged_users'] =  json_encode( !empty($input['tagged_users']) ? $input['tagged_users'] : []);
+            $data['organization_id'] = user('organization_id');
 
             $key_details = [];
 
@@ -225,6 +227,7 @@ class Reports extends MY_Controller
                 $data['approved_at'] = NULL;
             }else{
                 $data['rejected_by'] = user('id'); 
+                $data['reject_reason'] = $this->input->post('reject_reason');
                 $data['rejected_at'] = NULL;
             }
             

@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?= base_url('bower_components/datatables.net-dt/css/jquery.dataTables.min.css')?>">
 <?php $url = site_url('reports')?>
 <div class="box box-solid">
 	<div class="box-body">
@@ -55,7 +56,7 @@
 				</div>
 			</div>
 		</div>
-		<table class="table table-bordered clearfix">
+		<table class="table table-bordered clearfix" id="table">
 			<thead>
 				<tr>
 					<th></th><th>Type</th><th>Incident Date</th><th>Location</th><th>Responder</th><th>Status</th>
@@ -84,3 +85,12 @@
 		</table>
 	</div>
 </div>
+<script type="text/javascript" src="<?= base_url('bower_components/datatables.net/js/jquery.dataTables.min.js')?>"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#table').DataTable({
+			searching:false,
+			ordering: false
+		});
+	})
+</script>

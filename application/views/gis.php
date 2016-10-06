@@ -144,19 +144,19 @@
         var icons = {
           FLOOD: {
             url: "<?= base_url('assets/img/flood.png')?>",
-            size: new google.maps.Size((163 / 5), (166 / 5))
+            size: new google.maps.Size((163 / 7), (166 / 6.5))
           },
           FIRE:  {
             url: "<?= base_url('assets/img/fire.png')?>",
-            size: new google.maps.Size((120 / 3.5), (120 / 3.5))
+            size: new google.maps.Size((120 / 5.5), (120 / 5.5))
           },
           EARTHQUAKE:  {
             url: "<?= base_url('assets/img/earthquake.png')?>",
-            size: new google.maps.Size((163 / 5), (166 / 5))
+            size: new google.maps.Size((163 / 7), (166 / 7))
           },
           CRASH:  {
             url: "<?= base_url('assets/img/crash.png')?>",
-            size: new google.maps.Size((120 / 3.5), (120 / 3.5))
+            size: new google.maps.Size((120 / 5.5), (120 / 5.5))
           }
         };
         map = new google.maps.Map(document.getElementById('map'), {

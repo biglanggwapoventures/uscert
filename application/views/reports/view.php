@@ -169,6 +169,12 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="form-group">
+						<label>Tagged users</label>
+						<?= user_multiselect('tagged_users[]', json_decode(element('tagged_users', $data, '[]'), TRUE), 'class="form-control users" style="width:100%" disabled', TRUE)?>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
 						<label>Estimated damage</label>
                         <p class="form-control-static"><?= element('estimated_damage', $data)?></p>
 					</div>
@@ -187,7 +193,13 @@
 						Mark this incident report as <strong class="text-warning">rejected</strong>  
 					</label>
 				</div>
+				<div class="form-group" id="reject-remarks">
+					<label for="remarks">Reason for rejecting report</label>
+					<?= form_textarea('reject_reason', element('reject_reason', $data, ''), 'class="form-control" id="remarks"')?>
+				</div>
 			<?php endif;?>
+
+				
 			<hr/>
 			<?php 
 
@@ -202,7 +214,7 @@
 			?>
 
 			<?php if(!$isApproved && ($adminEditable || $userEditable)):?>
-				<button type="submit" class="btn btn-success">Submit</button>
+				<button type="submit" class="btn btn-success" onclick="return confirm('Confirm save changes?')">Submit</button>
 			<?php endif;?>
 			<a class="btn btn-default pull-right" href="<?= site_url('reports') ?>" id="back">Back</a>
 			
@@ -216,9 +228,21 @@
 		$('.vehicles').select2({
 			theme: 'bootstrap'
 		});
+		$('.users').select2({
+			theme: 'bootstrap'
+		});
 		if($('.box').data('modify-fields')){
 			$('.box input:not([type=radio]),select,textarea').attr('readonly', 'readonly');
 		}
+
+		$('[name=status]').change(function(){
+			var $this = $(this);
+			if($this.prop('checked') && $this.val()=== 'r'){
+				$('#reject-remarks').slideDown();
+			}else{
+				$('#reject-remarks').slideUp();
+			}
+		}).trigger('change');;
 	})
 
 
@@ -275,25 +299,6 @@
 			map.setZoom(parseInt($('[name=zoom]').val()));
 			map.setCenter(coords);
 		}
-		
-		google.maps.event.addListener(map, 'click', function(event) {
-			placeMarker(event.latLng);
-			geocoder.geocode({'latLng': event.latLng}, function(results, status) {
-				console.log(event.latLng);
-				if (status == google.maps.GeocoderStatus.OK) {
-					$('#real-address').text(results[0].formatted_address);
-					$('[name=latitude]').val(event.latLng.lat())
-					$('[name=longitude]').val(event.latLng.lng())
-					$('[name=formatted_address]').val(results[0].formatted_address);
-					$('[name=location]').val(results[0].formatted_address);
-				}
-			});
-		});
-
-		google.maps.event.addListener(map, 'zoom_changed', function(event) {
-			console.log('zoomed')
-			$('[name=zoom]').val(map.getZoom());
-		});
 	}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBb9gjcZGig7KAgoJC1EmMHA98Rp8Ayz98&callback=initMap" async defer></script>

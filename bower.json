@@ -24,6 +24,8 @@
     "moment": "^2.14.1",
     "eonasdan-bootstrap-datetimepicker": "^4.17.42",
     "select2": "^4.0.3",
-    "leaflet": "^0.7.7"
+    "leaflet": "^0.7.7",
+    "datatables.net": "^1.10.12",
+    "datatables.net-dt": "^1.10.12"
   }
 }

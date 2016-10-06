@@ -120,7 +120,30 @@
 			</div>
 		</div>
 		<?php else:?>
-			<h4 class="page-header text-center"><?= $date->format('F Y')?></div>
+			<div class="page-header text-center"><h4><?= $date->format('F Y')?></h4></div>
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-4">
+					<div class="well well-sm">
+						<form>
+							<div class="form-group">
+								<label>Month:</label>
+								<?php 
+									$m = $this->input->get('month') ?: date('n');
+									echo months_dropdown('month', $m, 'class="form-control"');
+								?>
+							</div>
+							<div class="form-group">
+								<label>Year:</label>
+								<?php
+									$y = $this->input->get('year') ?: date('Y');
+									echo form_input('year', $y, 'class="form-control"')
+								?>
+							</div>
+							<button type="submit" class="btn btn-success btn-block">Go</button>
+						</form>
+					</div>
+				</div>
+			</div>
 		<?php endif;?>
 
 		<table class="table table-bordered" id="attendance" style="table-layout:fixed;margin-top:10px;"
@@ -129,7 +152,6 @@
 			data-modify-url="<?= site_url('attendance/modify_log') ?>"
 			data-csrf-name="<?= $csrf_name ?>"
 			data-csrf-hash="<?= $csrf_hash ?>">
-			
 			<thead>
 				<tr>
 					<?php foreach($days AS $d):?>

@@ -21,5 +21,11 @@ class Vehicle_model extends MY_Model
 			->result_array();
 	}
 
+	function where($params)
+	{
+		$this->db->where($params);
+		return $this;
+	}
+
 
 }

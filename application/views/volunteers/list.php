@@ -20,7 +20,7 @@
 								<td><?= $i['fullname'] ?: '<em class="text-danger">Not supplied</em>' ?></td>
 								<td><?= $i['login_username'] ?></td>
 								<td><?= $i['organization'] ?></td>
-								<td><?= (int)$i['locked'] ? '<i class="fa fa-lock"></i> LOCKED' : '' ?></td>
+								<td><?= (int)$i['locked'] ? '<span class="label label-danger"><i class="fa fa-lock"></i> LOCKED</span>' : '<span class="label label-success"><i class="fa fa-check"></i> ACTIVE</span>' ?></td>
 								<td>
 									<a class="btn btn-info btn-xs" href="<?= site_url("volunteers/edit/{$i['id']}") ?>"><i class="fa fa-pencil"></i> Edit</a>
 									<a class="btn btn-danger btn-xs remove-line"><i class="fa fa-times "></i> Delete</a>

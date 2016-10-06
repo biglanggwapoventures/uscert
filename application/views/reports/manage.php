@@ -15,6 +15,18 @@
 			<div id="map" style="height:30vh;margin-bottom:10px">
 
 			</div>
+			<?php
+				$isApproved = element('approved_by', $data);
+				$isRejected = element('rejected_by', $data);
+				$adminEditable = user('login_type', 'a');
+				$userEditable = !element('created_by', $data, FALSE) || $data['created_by'] === user('id');
+			?>
+			<?php if($isRejected && !$isApproved): ?>
+				<div class="alert alert-danger">
+					<strong><i class="fa fa-exclamation-circle fa-fw"></i> This incident report is rejected due to the following: </strong>
+					<p><?= element('reject_reason', $data) ?: '<em>Sorry, your administrator has not provided any remarks on rejecting this incident report.</em>' ?></p>
+				</div>
+			<?php endif;?>
 			<?= form_open($action, 'id="ajax" class="clearfix"')?>
 			<div class="callout callout-danger hidden" id="validation-messages">
 				<ul class="list-unstyled"></ul>
@@ -174,7 +186,13 @@
 				<div class="col-sm-4">
 					<div class="form-group">
 						<label>Vehicles used</label>
-						<?= vehicle_multiselect('vehicles_used[]', json_decode(element('vehicles_used', $data, '[]'), TRUE), 'class="form-control vehicles" style="width:100%"')?>
+						<?= vehicle_multiselect('vehicles_used[]', json_decode(element('vehicles_used', $data, '[]'), TRUE), 'class="form-control vehicles" style="width:100%"', TRUE)?>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Tagged users</label>
+						<?= user_multiselect('tagged_users[]', json_decode(element('tagged_users', $data, '[]'), TRUE), 'class="form-control users" style="width:100%"', TRUE)?>
 					</div>
 				</div>
 				<div class="col-sm-4">
@@ -205,10 +223,7 @@
 				echo form_hidden('longitude', element('longitude', $data));
 				echo form_hidden('formatted_address', element('formatted_address', $data));
 				echo form_hidden('zoom', element('zoom', $data, '10'));
-
-				$isApproved = element('approved_by', $data);
-				$adminEditable = user('login_type', 'a');
-				$userEditable = !element('created_by', $data, FALSE) || $data['created_by'] === user('id');
+				
 			?>
 
 			<?php if(!$isApproved && ($adminEditable || $userEditable)):?>
@@ -224,6 +239,9 @@
 
 	$(document).ready(function(){
 		$('.vehicles').select2({
+			theme: 'bootstrap'
+		});
+		$('.users').select2({
 			theme: 'bootstrap'
 		});
 		if($('.box').data('modify-fields')){
